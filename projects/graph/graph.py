@@ -127,16 +127,16 @@ class Graph:
             # GRAB THE LAST VERTEX FROM THE PATH
             v = path[-1]
             # CHECK IF IT'S THE TARGET
+            if v == destination_vertex:
+            # IF SO, RETURN THE PATH
+                return path
+            # Check if it's been visited
             if v not in visited:
-                if v == destination_vertex:
-                # IF SO, RETURN THE PATH
-                    return path
-                # Check if it's been visited
-                visited.add(v)
             # If it has not been visited...
-                # Mark it as visited
-                # Then add A PATH TO all neighbors to the back of the queue
-                    # (Make a copy of the path before adding)
+            # Mark it as visited
+                visited.add(v)
+            # Then add A PATH TO all neighbors to the back of the queue
+            # (Make a copy of the path before adding)
                 for next_v in self.get_neighbors(v):
                     new_path = list(path)
                     new_path.append(next_v)
@@ -162,14 +162,14 @@ class Graph:
             # GRAB THE LAST VERTEX FROM THE PATH
             v = path[-1]
             # CHECK IF IT'S THE TARGET
+            if v == destination_vertex:
+             # IF SO, RETURN THE PATH
+                return path
+            # Check if it's been visited
             if v not in visited:
-                if v == destination_vertex:
-                # IF SO, RETURN THE PATH
-                    return path
-                # Check if it's been visited
-                visited.add(v)
             # If it has not been visited...
                 # Mark it as visited
+                visited.add(v)
                 # Then add A PATH TO all neighbors to the back of the stack
                     # (Make a copy of the path before adding)
                 for next_v in self.get_neighbors(v):
