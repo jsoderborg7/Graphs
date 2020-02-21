@@ -1,3 +1,6 @@
+import random
+from util import Queue
+
 class User:
     def __init__(self, name):
         self.name = name
@@ -43,6 +46,18 @@ class SocialGraph:
         self.users = {}
         self.friendships = {}
         # !!!! IMPLEMENT ME
+        friend_list = []
+
+        for user_id in range(self.last_id + 1, num_users + 1):
+            for friend_id in range(self.last_id + 1, num_users + 1):
+                if user_id < friend_id:
+                    friend_list.append((user_id, friend_id))
+            self.add_user(user_id)
+
+        random.shuffle(friend_list)
+
+        for i in range((num_users * avg_friendships) // 2):
+            self.add_friendship(friend_list[i][0], friend_list[i][1]) 
 
         # Add users
 
@@ -59,6 +74,18 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+        q = Queue()
+        q.enqueue([user_id])
+        while q.size() > 0:
+            path = q.dequeue()
+            v = path[-1]
+            if v in visited and len(path) < len(visited[v]):
+                visited[v] = path
+            if v not in visited:
+                visited[v] = path
+                edges = self.friendships[v]
+                for edge in edges:
+                    q.enqueue(path + [edge])
         return visited
 
 
